@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Mas Ipan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Poppins',sans-serif;background:#020814;color:#fff}
+body{position:relative}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow-y:auto;background:radial-gradient(circle at top,#102a43,#020814 70%);opacity:0;transform:translateX(100%);transition:transform .9s cubic-bezier(.77,0,.18,1),opacity .9s}
+.scene.active{opacity:1;transform:translateX(0)}
+.scene.exit{opacity:0;transform:translateX(-100%)}
+.card{width:min(92%,700px);padding:28px;border-radius:32px;background:rgba(255,255,255,.08);backdrop-filter:blur(16px);text-align:center;box-shadow:0 0 35px rgba(255,105,180,.18);margin:auto}
+.btn{margin-top:20px;padding:14px 30px;border:none;border-radius:999px;background:linear-gradient(45deg,#ff4fa3,#ff7eb6);color:#fff;font-weight:700;font-size:1.1rem;cursor:pointer}
+.hearts,.rain,.stars{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hearts span{position:absolute;font-size:22px;animation:heartFloat linear infinite}
+@keyframes heartFloat{from{transform:translateY(100vh)}to{transform:translateY(-20vh)}}
+.rain span{position:absolute;width:3px;height:80px;background:linear-gradient(transparent,#ff4fa3);animation:rainFall linear infinite}
+@keyframes rainFall{from{transform:translateY(-120px)}to{transform:translateY(100vh)}}
+.stars span{position:absolute;width:3px;height:3px;background:white;border-radius:50%;box-shadow:0 0 10px white;animation:shoot linear infinite}
+.stars span::after{content:'';position:absolute;width:80px;height:2px;background:linear-gradient(90deg,white,transparent)}
+@keyframes shoot{from{transform:translate(0,0) rotate(25deg)}to{transform:translate(-120vw,120vh) rotate(25deg);opacity:0}}
+.keypad{display:grid;grid-template-columns:repeat(3,80px);gap:14px;justify-content:center;margin-top:18px}
+.key{padding:18px;border-radius:18px;background:linear-gradient(145deg,#ff4fa3,#4da6ff,#091833);text-align:center;font-size:1.3rem;font-weight:600;cursor:pointer}
+.dots{display:flex;justify-content:center;gap:10px;margin:15px}
+.dot{width:16px;height:16px;border:2px solid pink;border-radius:50%}
+.fill{background:pink}
+.title{font-family:'Great Vibes',cursive;font-size:clamp(3rem,12vw,5rem);margin-bottom:20px}
+.message{margin-top:20px;padding:28px;border-radius:40px;background:rgba(255,255,255,.1);line-height:1.9;font-size:clamp(1rem,4vw,1.2rem);box-shadow:0 0 35px rgba(255,105,180,.35), inset 0 0 15px rgba(255,105,180,.15)}
+.cake-art{position:relative;width:240px;height:270px;margin:0 auto 10px auto}.cake-plate{position:absolute;bottom:0;left:10px;width:220px;height:22px;background:#b97a56;border-radius:50%}.cake-bottom{position:absolute;bottom:22px;left:30px;width:180px;height:80px;background:#f6c165;border-radius:0 0 35px 35px}.cake-top{position:absolute;bottom:100px;left:50px;width:140px;height:65px;background:#9fd9ff;border-radius:14px}.icing-top{position:absolute;bottom:155px;left:45px;width:150px;height:22px;background:#fff8e7;border-radius:20px}.icing-bottom{position:absolute;bottom:95px;left:25px;width:190px;height:24px;background:#fff8e7;border-radius:20px}.drip1,.drip2,.drip3{position:absolute;background:#fff8e7;border-radius:0 0 12px 12px}.drip1{width:18px;height:25px;left:65px;bottom:135px}.drip2{width:14px;height:20px;left:110px;bottom:138px}.drip3{width:16px;height:24px;left:155px;bottom:136px}.strawberry{position:absolute;width:20px;height:28px;background:#ff5a5f;border-radius:50% 50% 45% 45%}.s1{left:58px;bottom:165px}.s2{left:103px;bottom:172px}.s3{left:148px;bottom:165px}.leaf{position:absolute;width:10px;height:6px;background:#5bbd5b;border-radius:50%}.l1{left:63px;bottom:190px}.l2{left:108px;bottom:197px}.l3{left:153px;bottom:190px}.candle{position:absolute;bottom:177px;width:14px;height:42px;background:repeating-linear-gradient(45deg,#ff4d4d 0,#ff4d4d 6px,#fff 6px,#fff 12px)}.c1{left:72px}.c2{left:113px}.c3{left:154px}.flame{position:absolute;width:14px;height:20px;background:gold;border-radius:50%;box-shadow:0 0 15px gold;animation:flicker .8s infinite alternate}.f1{left:72px;bottom:214px}.f2{left:113px;bottom:214px}.f3{left:154px;bottom:214px}@keyframes flicker{from{transform:scale(1)}to{transform:scale(1.15)}}
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+<section class="scene active" id="scene1"><div class="card"><div style="font-size:6rem">🌑</div><h1 style="color:#ff8fcf">Klik di sini ya mas Ipan</h1><button class="btn" onclick="nextScene(2)">Buka</button></div></section>
+<section class="scene" id="scene2"><div class="card" style="background:linear-gradient(145deg,rgba(255,105,180,.15),rgba(77,166,255,.12),rgba(2,8,20,.9))"><h2>kode nya 1405 ya mas Ipan</h2><div class="dots" id="dots"></div><div class="keypad" id="keys"></div></div></section>
+<section class="scene" id="scene3"><div class="rain" id="rain"></div><h1 class="title">Happy Birthday</h1><button class="btn" onclick="nextScene(4)">Lanjut</button></section>
+<section class="scene" id="scene4"><div class="stars" id="stars"></div><div class="card"><div class="cake-art"><div class="cake-plate"></div><div class="cake-bottom"></div><div class="cake-top"></div><div class="icing-top"></div><div class="icing-bottom"></div><div class="drip1"></div><div class="drip2"></div><div class="drip3"></div><div class="strawberry s1"></div><div class="strawberry s2"></div><div class="strawberry s3"></div><div class="leaf l1"></div><div class="leaf l2"></div><div class="leaf l3"></div><div class="candle c1"></div><div class="candle c2"></div><div class="candle c3"></div><div class="flame f1"></div><div class="flame f2"></div><div class="flame f3"></div></div><div class="message">Barakallah fii umrik mas Ipan Udah naik level ke 23 tahun nih xixi, semoga mas Ipan selalu dikelilingi hal-hal baik, dilancarkan segalanya, sehat selalu yaa, makin bahagia, di lancarkan terus rezeki nya, dan tetap jadi mas Ipan yang baik dan keren xixi</div></div></section>
+<script>
+for(let i=0;i<25;i++){const h=document.createElement('span');h.innerHTML='💗';h.style.left=Math.random()*100+'%';h.style.animationDuration=(4+Math.random()*5)+'s';document.getElementById('hearts').appendChild(h);}
+for(let i=0;i<80;i++){const r=document.createElement('span');r.style.left=Math.random()*100+'%';r.style.animationDuration=(1+Math.random()*2)+'s';document.getElementById('rain').appendChild(r);}
+for(let i=0;i<35;i++){const s=document.createElement('span');s.style.left=Math.random()*100+'%';s.style.top=Math.random()*50+'%';s.style.animationDuration=(2+Math.random()*4)+'s';s.style.animationDelay=Math.random()*4+'s';document.getElementById('stars').appendChild(s);}
+let code=''; const correct='1405';
+const dots=document.getElementById('dots');
+for(let i=0;i<4;i++){const d=document.createElement('div');d.className='dot';dots.appendChild(d);}
+const keys=document.getElementById('keys');
+[1,2,3,4,5,6,7,8,9,'',0].forEach(n=>{const k=document.createElement('div');k.className='key';k.textContent=n; if(n===''){k.style.visibility='hidden';} k.onclick=()=>{if(n==='')return; if(code.length<4){code+=n;dots.children[code.length-1].classList.add('fill');} if(code.length===4){setTimeout(()=>{if(code===correct){nextScene(3);} else {alert('Salah yaa xixi');code='';[...dots.children].forEach(dot=>dot.classList.remove('fill'));}},250);}}; keys.appendChild(k);});
+function nextScene(num){const current=document.querySelector('.scene.active'); if(current){current.classList.remove('active'); current.classList.add('exit'); setTimeout(()=>current.classList.remove('exit'),900);} const next=document.getElementById('scene'+num); setTimeout(()=>next.classList.add('active'),120);}
+</script>
+</body>
+</html>
